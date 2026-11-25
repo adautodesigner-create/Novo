@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Missão Certificados: Excel + Canva + Word</title>
+<style>
+:root { --azul:#1f4e79; --verde:#2e7d32; --laranja:#d9822b; --roxo:#6a3fa0; --cinza:#f4f6f8; --borda:#d6dbe0; --tx:#1d2430; }
+* { box-sizing:border-box; min-width:0; }
+body { margin:0; font-family:"Segoe UI", Roboto, Arial, sans-serif; color:var(--tx); background:#fff; line-height:1.6; font-size:17px; overflow-x:clip; }
+header { background:linear-gradient(135deg,#1f4e79,#2b6ca3); color:#fff; padding:28px 20px 24px; }
+header .wrap { max-width:920px; margin:auto; }
+header small { opacity:.85; font-size:.8rem; }
+header h1 { margin:.2em 0 .25em; font-size:clamp(1.6rem,5vw,2.2rem); line-height:1.15; }
+main { max-width:920px; margin:auto; padding:10px 18px 60px; }
+h2 { color:var(--azul); border-bottom:3px solid var(--azul); padding-bottom:4px; margin-top:2.2em; line-height:1.25; }
+h2 .n { display:inline-block; background:var(--azul); color:#fff; border-radius:8px; padding:0 10px; margin-right:6px; }
+h3 { margin-top:1.8em; }
+h4 { margin:1.6em 0 .2em; color:var(--roxo); font-size:1.05rem; }
+.box { background:var(--cinza); border-left:5px solid var(--azul); padding:12px 16px; border-radius:6px; margin:14px 0; }
+.box.ok { border-color:var(--verde); background:#eef7ee; }
+.box.at { border-color:var(--laranja); background:#fdf3e8; }
+.mapa { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:10px; margin:16px 0; }
+.mapa div { border:2px solid var(--borda); border-radius:10px; padding:12px; text-align:center; position:relative; background:#fff; }
+.mapa b { display:block; font-size:1.15rem; color:var(--azul); }
+.mapa span { font-size:.88rem; color:#445; }
+.mapa div:not(:last-child)::after { content:"➜"; position:absolute; right:-17px; top:40%; color:var(--azul); font-size:1.2rem; z-index:1; }
+@media (max-width:600px) { .mapa { grid-template-columns:1fr; } .mapa div:not(:last-child)::after { content:"⬇"; right:auto; left:50%; top:auto; bottom:-22px; transform:translateX(-50%); } }
+dl.dic { display:grid; grid-template-columns:minmax(0,10em) minmax(0,1fr); gap:6px 14px; margin:10px 0; }
+dl.dic dt { font-weight:700; color:var(--azul); }
+dl.dic dd { margin:0; }
+@media (max-width:600px) { dl.dic { grid-template-columns:1fr; } dl.dic dd { margin-bottom:8px; } }
+.tw { overflow-x:auto; margin:10px 0; }
+table { border-collapse:collapse; width:100%; font-size:.88rem; }
+th,td { border:1px solid var(--borda); padding:6px 8px; text-align:left; vertical-align:top; }
+th { background:var(--azul); color:#fff; white-space:nowrap; }
+tbody tr:nth-child(even) td { background:#fafbfc; }
+td.dica { color:#667; font-size:.82rem; }
+code { background:#eef1f5; padding:1px 5px; border-radius:4px; font-size:.88em; overflow-wrap:anywhere; }
+code.f { display:block; margin-top:6px; white-space:pre-wrap; word-break:break-word; background:#fffbe6; border:1px solid #f0e2a0; padding:6px 8px; font-size:.95em; }
+details summary { cursor:pointer; color:var(--azul); font-weight:600; padding:4px 0; }
+.steps { display:grid; gap:10px; }
+.step { border:1px solid var(--borda); border-radius:10px; padding:10px 14px; }
+.step p { margin:.35em 0; }
+.sh { display:flex; align-items:center; gap:8px; }
+.col { background:var(--azul); color:#fff; font-weight:700; border-radius:6px; width:30px; height:30px; display:inline-flex; align-items:center; justify-content:center; }
+.esp { font-size:.92rem; color:var(--verde); }
+.ex { font-size:.9rem; color:#445; }
+.prob { border:1px solid var(--borda); border-radius:8px; padding:6px 12px; margin:8px 0; }
+.prob p { margin:.3em 0 .5em; }
+button.cp { background:var(--verde); color:#fff; border:0; padding:10px 16px; min-height:44px; border-radius:8px; font-weight:600; cursor:pointer; font-size:.95rem; }
+ol li, ul li { margin:.4em 0; }
+.cert { border:2px dashed var(--azul); border-radius:8px; padding:18px 20px; background:#fbfdff; font-family:Georgia, "Times New Roman", serif; }
+.fld { background:#e3edf7; color:var(--azul); font-family:Consolas, monospace; font-size:.85em; padding:0 3px; border-radius:3px; }
+.grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:12px; }
+.card { border:1px solid var(--borda); border-radius:8px; padding:12px 14px; }
+.card h4 { margin:.1em 0 .4em; color:var(--azul); }
+.check { padding-left:0; }
+.check li { list-style:none; }
+.check li::before { content:"☐ "; color:var(--azul); font-weight:700; }
+.tempo { display:inline-block; background:#eef1f5; border-radius:20px; padding:2px 10px; font-size:.8rem; color:#445; margin-left:6px; vertical-align:middle; }
+footer { text-align:center; color:#889; font-size:.8rem; padding:20px; }
+@media print {
+  header { background:none; color:#000; border-bottom:2px solid #000; }
+  button.cp { display:none; }
+  details:not(.prob) { display:none; }
+  table, .box, .cert, .step { break-inside:avoid; }
+}
+</style>
+</head>
+<body>
+<header><div class="wrap">
+  <small>Informática Básica · Secretaria de Cultura do Eusébio · Prof. Adauto</small>
+  <h1>Missão Certificados</h1>
+  <div>Você vai fazer o computador criar <b>10 certificados de uma vez só</b>, cada um com o nome certo, as notas certas e uma arte bonita.</div>
+</div></header>
+
+<main>
+
+<h2>Que missão é essa?</h2>
+<p>Imagine escrever 10 certificados à mão, um por um. Cansativo, né? E se você errar o nome de alguém?</p>
+<p>A <b>mala direta</b> resolve isso. Você faz <b>um modelo</b> com alguns espaços em branco, e o Word preenche esses espaços com os dados de cada aluno, criando um certificado para cada pessoa. É como um formulário que se preenche sozinho.</p>
+<p>Para isso, você vai usar 3 programas, cada um com um trabalho:</p>
+<div class="mapa">
+  <div><b>1. Excel</b><span>guarda a lista de alunos e faz as contas</span></div>
+  <div><b>2. Canva</b><span>faz a arte bonita do certificado</span></div>
+  <div><b>3. Word</b><span>junta tudo e cria os certificados</span></div>
+</div>
+
+<h3>Palavras que você vai ver</h3>
+<dl class="dic">
+  <dt>Célula</dt><dd>Cada quadradinho da planilha. Tem um “endereço”, como <b>B2</b> (coluna B, linha 2).</dd>
+  <dt>Aba</dt><dd>As “páginas” da planilha, lá embaixo. Você vai ter 3: Base, Cursos e Resumo.</dd>
+  <dt>Fórmula</dt><dd>Uma conta que o Excel faz sozinho. Sempre começa com <code>=</code>.</dd>
+  <dt>Arrastar a fórmula</dt><dd>Clique na célula com a fórmula, segure o <b>quadradinho verde</b> do canto de baixo e puxe para baixo. A fórmula é copiada para os outros alunos.</dd>
+  <dt>Campo de mesclagem</dt><dd>O “espaço em branco” do modelo no Word, como <span class="fld">«Nome»</span>. O Word troca pelo dado de cada aluno.</dd>
+</dl>
+
+<div class="box"><b>Os alunos da lista são personagens de anime</b> (são de mentira, só para treinar). Use a <b>Sakura Haruno</b>, a primeira da lista, para conferir se suas fórmulas estão certas: em cada passo está escrito o que deve aparecer na linha dela.</div>
+
+<h2><span class="n">1</span>Excel: a lista de alunos <span class="tempo">≈ 60 min</span></h2>
+
+<h3>Passo 1 · Crie o arquivo</h3>
+<ol>
+  <li>Abra o Excel e crie uma <b>pasta de trabalho em branco</b>.</li>
+  <li>Salve com o nome <code>Certificados_SeuNome</code>.</li>
+  <li>Lá embaixo, clique com o botão direito em <b>Planilha1</b> › <b>Renomear</b> › escreva <b>Base</b>.</li>
+  <li>Clique no <b>+</b> ao lado para criar mais duas abas. Dê os nomes <b>Cursos</b> e <b>Resumo</b>.</li>
+</ol>
+
+<h3>Passo 2 · Cole os dados dos cursos</h3>
+<p>Vá para a aba <b>Cursos</b>, clique na célula <b>A1</b>, aperte o botão verde e cole com <b>Ctrl + V</b>.</p>
+<button class="cp" data-src="cursos">📋 Copiar dados dos cursos</button>
+<div class="tw"><table><thead><tr><th>Curso</th><th>Carga_Horaria</th><th>Aulas</th><th>Inicio</th><th>Termino</th></tr></thead><tbody><tr><td>Informática Básica</td><td>64</td><td>32</td><td>05/08/2026</td><td>04/12/2026</td></tr><tr><td>Animação 2D</td><td>32</td><td>16</td><td>04/08/2026</td><td>01/12/2026</td></tr><tr><td>Modelagem 3D</td><td>32</td><td>16</td><td>06/08/2026</td><td>03/12/2026</td></tr></tbody></table></div>
+
+<h3>Passo 3 · Cole os dados dos alunos</h3>
+<p>Vá para a aba <b>Base</b>, clique em <b>A1</b>, aperte o botão verde e cole com <b>Ctrl + V</b>. Os dados vão ficar nas colunas <b>A até H</b>.</p>
+<button class="cp" data-src="alunos">📋 Copiar dados dos alunos</button>
+<div class="tw"><table><thead><tr><th>Matricula</th><th>Nome</th><th>Genero</th><th>Curso</th><th>N1</th><th>N2</th><th>N3</th><th>Faltas</th></tr></thead><tbody><tr><td>1001</td><td>Sakura Haruno</td><td>F</td><td>Informática Básica</td><td>8,5</td><td>7,0</td><td>9,0</td><td>2</td></tr><tr><td>1002</td><td>Naruto Uzumaki</td><td>M</td><td>Informática Básica</td><td>6,0</td><td>5,5</td><td>7,0</td><td>4</td></tr><tr><td>1003</td><td>Mikasa Ackerman</td><td>F</td><td>Animação 2D</td><td>9,5</td><td>9,0</td><td>10,0</td><td>1</td></tr><tr><td>1004</td><td>Eren Yeager</td><td>M</td><td>Modelagem 3D</td><td>7,5</td><td>8,0</td><td>7,0</td><td>5</td></tr><tr><td>1005</td><td>Hinata Hyuga</td><td>F</td><td>Informática Básica</td><td>7,0</td><td>7,5</td><td>8,0</td><td>6</td></tr><tr><td>1006</td><td>Izuku Midoriya</td><td>M</td><td>Animação 2D</td><td>8,0</td><td>8,5</td><td>9,0</td><td>0</td></tr><tr><td>1007</td><td>Nezuko Kamado</td><td>F</td><td>Modelagem 3D</td><td>10,0</td><td>9,5</td><td>9,5</td><td>1</td></tr><tr><td>1008</td><td>Monkey D. Luffy</td><td>M</td><td>Informática Básica</td><td>5,0</td><td>6,5</td><td>6,0</td><td>3</td></tr><tr><td>1009</td><td>Usagi Tsukino</td><td>F</td><td>Animação 2D</td><td>7,0</td><td>6,5</td><td>7,5</td><td>2</td></tr><tr><td>1010</td><td>Tanjiro Kamado</td><td>M</td><td>Modelagem 3D</td><td>8,0</td><td>7,5</td><td>8,5</td><td>2</td></tr><tr><td>1011</td><td>Bulma Briefs</td><td>F</td><td>Informática Básica</td><td>9,0</td><td>8,5</td><td>9,5</td><td>9</td></tr><tr><td>1012</td><td>Son Goku</td><td>M</td><td>Animação 2D</td><td>6,5</td><td>7,0</td><td>7,0</td><td>1</td></tr><tr><td>1013</td><td>Asuka Langley</td><td>F</td><td>Modelagem 3D</td><td>8,5</td><td>9,0</td><td>8,0</td><td>3</td></tr><tr><td>1014</td><td>Light Yagami</td><td>M</td><td>Informática Básica</td><td>7,5</td><td>8,0</td><td>7,0</td><td>1</td></tr><tr><td>1015</td><td>Rukia Kuchiki</td><td>F</td><td>Animação 2D</td><td>9,0</td><td>8,0</td><td>8,5</td><td>4</td></tr></tbody></table></div>
+<div class="box at"><b>Confira:</b> os números (notas e faltas) devem ficar encostados do lado <b>direito</b> da célula. Se ficarem do lado esquerdo, o Excel achou que é texto. Chame o professor.</div>
+
+<h3>Passo 4 · Escreva os títulos das novas colunas</h3>
+<p>Na linha 1 da aba Base, a partir da coluna <b>I</b>, escreva estes títulos, um em cada célula, <b>exatamente assim</b> (sem acento e sem espaço, porque o Word vai usar esses nomes):</p>
+<p><code>Carga_Horaria</code> <code>Aulas</code> <code>Inicio</code> <code>Termino</code> <code>Media</code> <code>Frequencia</code> <code>Situacao</code> <code>Conceito</code> <code>Aluno</code> <code>Nome_Maiusc</code> <code>Media_Txt</code> <code>Freq_Txt</code> <code>Inicio_Txt</code> <code>Termino_Txt</code> <code>Codigo</code></p>
+<p>O último, <b>Codigo</b>, fica na coluna <b>W</b>.</p>
+
+<h3>Passo 5 · Faça as fórmulas</h3>
+<p>Para cada coluna: escreva a fórmula na <b>linha 2</b> (linha da Sakura), aperte <b>Enter</b>, confira o resultado e depois <b>arraste</b> até a linha 16.</p>
+<p>Tente primeiro sem olhar a dica. Errar faz parte!</p>
+<div class="box"><b>Lembrete:</b> no Excel em português, as partes da fórmula são separadas por <b>ponto e vírgula</b> <code>;</code></div>
+<h4>Parte A · Buscar as informações do curso</h4><p>Cada aluno faz um curso. As informações do curso (horas, aulas, datas) estão na aba <b>Cursos</b>. A função <b>PROCV</b> funciona como uma busca: ela procura o nome do curso lá na aba Cursos e traz a informação que você pedir.</p><div class='steps'><div class="step">
+  <div class="sh"><span class="col">I</span><code>Carga_Horaria</code></div>
+  <p>Traga quantas horas tem o curso.</p>
+  <p class="esp">Na linha da Sakura deve aparecer: <b>64</b></p>
+  <details><summary>Travou? Ver dica (PROCV)</summary><code class="f">=PROCV(D2;Cursos!$A$2:$E$4;2;FALSO)</code><p class="ex">Lê-se: procure o curso de D2, na tabela da aba Cursos, e traga a <b>2ª coluna</b>. Os cifrões <code>$</code> travam a tabela para ela não “andar” quando você arrastar.</p></details>
+</div><div class="step">
+  <div class="sh"><span class="col">J</span><code>Aulas</code></div>
+  <p>Traga quantas aulas tem o curso.</p>
+  <p class="esp">Na linha da Sakura deve aparecer: <b>32</b></p>
+  <details><summary>Travou? Ver dica (PROCV)</summary><code class="f">=PROCV(D2;Cursos!$A$2:$E$4;3;FALSO)</code><p class="ex">Igual à anterior, só troca o 2 por <b>3</b>.</p></details>
+</div><div class="step">
+  <div class="sh"><span class="col">K</span><code>Inicio</code></div>
+  <p>Traga a data de início.</p>
+  <p class="esp">Na linha da Sakura deve aparecer: <b>05/08/2026</b></p>
+  <details><summary>Travou? Ver dica (PROCV)</summary><code class="f">=PROCV(D2;Cursos!$A$2:$E$4;4;FALSO)</code><p class="ex">Se aparecer um número estranho (46239), formate a coluna como <b>Data</b>.</p></details>
+</div><div class="step">
+  <div class="sh"><span class="col">L</span><code>Termino</code></div>
+  <p>Traga a data de término.</p>
+  <p class="esp">Na linha da Sakura deve aparecer: <b>04/12/2026</b></p>
+  <details><summary>Travou? Ver dica (PROCV)</summary><code class="f">=PROCV(D2;Cursos!$A$2:$E$4;5;FALSO)</code><p class="ex">Também formate como Data.</p></details>
+</div></div><h4>Parte B · Fazer as contas</h4><p>Agora o Excel vira calculadora.</p><div class='steps'><div class="step">
+  <div class="sh"><span class="col">M</span><code>Media</code></div>
+  <p>Faça a média das 3 notas, com 1 número depois da vírgula.</p>
+  <p class="esp">Na linha da Sakura deve aparecer: <b>8,2</b></p>
+  <details><summary>Travou? Ver dica (ARRED + MÉDIA)</summary><code class="f">=ARRED(MÉDIA(E2:G2);1)</code><p class="ex">MÉDIA soma as notas e divide por 3. ARRED corta para 1 casa depois da vírgula.</p></details>
+</div><div class="step">
+  <div class="sh"><span class="col">N</span><code>Frequencia</code></div>
+  <p>Descubra quanto por cento das aulas o aluno assistiu.</p>
+  <p class="esp">Na linha da Sakura deve aparecer: <b>94%</b></p>
+  <details><summary>Travou? Ver dica (conta)</summary><code class="f">=(J2-H2)/J2</code><p class="ex">Aulas menos faltas = aulas assistidas. Divida pelo total de aulas. Depois clique no botão <b>%</b>.</p></details>
+</div></div><h4>Parte C · O Excel decide</h4><p>A função <b>SE</b> faz uma pergunta e escolhe uma resposta: “SE isso for verdade, escreva A; se não, escreva B”.</p><div class='steps'><div class="step">
+  <div class="sh"><span class="col">O</span><code>Situacao</code></div>
+  <p>Escreva <b>APROVADO</b> se a média for 7 ou mais <b>e</b> a frequência for 75% ou mais. Senão, <b>REPROVADO</b>.</p>
+  <p class="esp">Na linha da Sakura deve aparecer: <b>APROVADO</b></p>
+  <details><summary>Travou? Ver dica (SE + E)</summary><code class="f">=SE(E(M2&gt;=7;N2&gt;=0,75);"APROVADO";"REPROVADO")</code><p class="ex">A função E só diz “verdade” quando as <b>duas</b> condições são verdade.</p></details>
+</div><div class="step">
+  <div class="sh"><span class="col">P</span><code>Conceito</code></div>
+  <p>Reprovado ganha “-”. Média 9 ou mais: Excelente. 8 ou mais: Ótimo. O resto: Bom.</p>
+  <p class="esp">Na linha da Sakura deve aparecer: <b>Ótimo</b></p>
+  <details><summary>Travou? Ver dica (SE dentro de SE)</summary><code class="f">=SE(O2="REPROVADO";"-";SE(M2&gt;=9;"Excelente";SE(M2&gt;=8;"Ótimo";"Bom")))</code><p class="ex">É um SE dentro do outro, como uma escada: o Excel testa um degrau de cada vez.</p></details>
+</div><div class="step">
+  <div class="sh"><span class="col">Q</span><code>Aluno</code></div>
+  <p>Se o Genero for F, escreva “a aluna”. Se for M, “o aluno”.</p>
+  <p class="esp">Na linha da Sakura deve aparecer: <b>a aluna</b></p>
+  <details><summary>Travou? Ver dica (SE)</summary><code class="f">=SE(C2="F";"a aluna";"o aluno")</code><p class="ex">Assim o certificado sai com a palavra certa para cada pessoa.</p></details>
+</div></div><h4>Parte D · Preparar o texto para o Word</h4><p>O Word é meio “desajeitado” com números e datas: ele mostraria <code>0,9375</code> no lugar de 94% e a data no formato americano. A função <b>TEXTO</b> transforma o número em texto já do jeitinho certo.</p><div class='steps'><div class="step">
+  <div class="sh"><span class="col">R</span><code>Nome_Maiusc</code></div>
+  <p>Escreva o nome todo em LETRAS MAIÚSCULAS.</p>
+  <p class="esp">Na linha da Sakura deve aparecer: <b>SAKURA HARUNO</b></p>
+  <details><summary>Travou? Ver dica (MAIÚSCULA)</summary><code class="f">=MAIÚSCULA(B2)</code></details>
+</div><div class="step">
+  <div class="sh"><span class="col">S</span><code>Media_Txt</code></div>
+  <p>A média como texto, com vírgula.</p>
+  <p class="esp">Na linha da Sakura deve aparecer: <b>8,2</b></p>
+  <details><summary>Travou? Ver dica (TEXTO)</summary><code class="f">=TEXTO(M2;"0,0")</code></details>
+</div><div class="step">
+  <div class="sh"><span class="col">T</span><code>Freq_Txt</code></div>
+  <p>A frequência como texto com %.</p>
+  <p class="esp">Na linha da Sakura deve aparecer: <b>94%</b></p>
+  <details><summary>Travou? Ver dica (TEXTO)</summary><code class="f">=TEXTO(N2;"0%")</code></details>
+</div><div class="step">
+  <div class="sh"><span class="col">U</span><code>Inicio_Txt</code></div>
+  <p>A data de início escrita por extenso.</p>
+  <p class="esp">Na linha da Sakura deve aparecer: <b>05 de agosto de 2026</b></p>
+  <details><summary>Travou? Ver dica (TEXTO)</summary><code class="f">=TEXTO(K2;"dd \"de\" mmmm \"de\" aaaa")</code><p class="ex">Copie com cuidado: as barras e aspas fazem parte da fórmula.</p></details>
+</div><div class="step">
+  <div class="sh"><span class="col">V</span><code>Termino_Txt</code></div>
+  <p>A data de término por extenso.</p>
+  <p class="esp">Na linha da Sakura deve aparecer: <b>04 de dezembro de 2026</b></p>
+  <details><summary>Travou? Ver dica (TEXTO)</summary><code class="f">=TEXTO(L2;"dd \"de\" mmmm \"de\" aaaa")</code></details>
+</div><div class="step">
+  <div class="sh"><span class="col">W</span><code>Codigo</code></div>
+  <p>Crie um código: SC, a matrícula e o ano, separados por traço.</p>
+  <p class="esp">Na linha da Sakura deve aparecer: <b>SC-1001-2026</b></p>
+  <details><summary>Travou? Ver dica (&amp; + ANO)</summary><code class="f">="SC-"&amp;A2&amp;"-"&amp;ANO(L2)</code><p class="ex">O <code>&amp;</code> “cola” pedaços de texto um no outro.</p></details>
+</div></div>
+
+<h3>Passo 6 · Deixe a planilha pronta para o Word</h3>
+<ul>
+  <li>Os títulos ficam <b>só na linha 1</b>. Não coloque um título grande por cima da tabela.</li>
+  <li><b>Não mescle células</b> e não deixe linhas vazias no meio.</li>
+  <li>Cores e bordas são opcionais: o Word não liga para elas.</li>
+  <li><b>Salve</b> o arquivo (Ctrl + S).</li>
+</ul>
+<div class="box ok"><b>Bônus:</b> selecione a coluna <b>Situacao</b> e use <b>Página Inicial › Formatação Condicional › Realçar Regras das Células › É igual a</b> para pintar APROVADO de verde e REPROVADO de vermelho.</div>
+
+<h3>Passo 7 · Responda às perguntas na aba Resumo</h3>
+<p>Na aba <b>Resumo</b>, escreva as perguntas na coluna A. Na coluna B, responda <b>com uma fórmula</b>, nunca digitando o número.</p>
+<div class="tw"><table>
+<thead><tr><th>#</th><th>Pergunta</th><th>Função que ajuda</th></tr></thead>
+<tbody><tr><td>1</td><td>Quantos alunos tem na lista?</td><td class='dica'>CONT.VALORES</td></tr><tr><td>2</td><td>Quantos foram aprovados?</td><td class='dica'>CONT.SE</td></tr><tr><td>3</td><td>Quantos foram reprovados?</td><td class='dica'>CONT.SE</td></tr><tr><td>4</td><td>Quantos por cento foram aprovados?</td><td class='dica'>aprovados ÷ total</td></tr><tr><td>5</td><td>Qual a média da turma toda?</td><td class='dica'>ARRED + MÉDIA</td></tr><tr><td>6</td><td>Qual foi a maior média?</td><td class='dica'>MÁXIMO</td></tr><tr><td>7</td><td>Quem tirou a maior média?</td><td class='dica'>ÍNDICE + CORRESP</td></tr><tr><td>8</td><td>Qual foi a menor frequência?</td><td class='dica'>MÍNIMO</td></tr><tr><td>9</td><td>Quantos aprovados em Informática Básica?</td><td class='dica'>CONT.SES</td></tr><tr><td>10</td><td>Quantos aprovados em Animação 2D?</td><td class='dica'>CONT.SES</td></tr><tr><td>11</td><td>Quantos aprovados em Modelagem 3D?</td><td class='dica'>CONT.SES</td></tr><tr><td>12</td><td>Quantos certificados a mala direta vai criar?</td><td class='dica'>pense: quem ganha?</td></tr></tbody></table></div>
+<div class="box ok"><b>Confira:</b> aprovados + reprovados tem que dar o total de alunos.</div>
+
+<h2><span class="n">2</span>Canva: a arte do certificado <span class="tempo">≈ 30 min</span></h2>
+<ol>
+  <li>No Canva, clique em <b>Criar design › Tamanho personalizado</b>. Escolha <b>milímetros</b> e coloque <b>297 × 210</b>. Isso é uma folha A4 deitada.</li>
+  <li>Coloque na arte:
+    <ul>
+      <li>uma <b>moldura</b> (borda) bonita;</li>
+      <li>o título <b>CERTIFICADO DE CONCLUSÃO</b>;</li>
+      <li>o nome <b>Secretaria de Cultura do Eusébio</b>;</li>
+      <li>embaixo, duas linhas para assinatura: <b>Professor(a)</b> e <b>Coordenação</b>.</li>
+    </ul>
+  </li>
+  <li><b>Deixe o meio da folha vazio!</b> É ali que o Word vai escrever o texto de cada aluno.</li>
+  <li>No meio, use cores bem clarinhas, para o texto ficar fácil de ler.</li>
+  <li>Clique em <b>Compartilhar › Baixar</b>, escolha <b>PNG</b> e baixe. Dê o nome <code>fundo_certificado</code>.</li>
+</ol>
+<div class="box at"><b>Atenção:</b> não escreva nome de aluno, curso ou data no Canva. O que muda de um certificado para o outro é trabalho do Word.</div>
+
+<h2><span class="n">3</span>Word: juntando tudo <span class="tempo">≈ 30 min</span></h2>
+
+<h3>Passo 1 · Deite a folha e coloque a arte</h3>
+<ol>
+  <li>Abra um documento em branco.</li>
+  <li><b>Layout › Orientação › Paisagem</b> (a folha fica deitada).</li>
+  <li>Dê <b>dois cliques bem no topo da folha</b>. Vai abrir o <b>cabeçalho</b>.</li>
+  <li>Com o cabeçalho aberto: <b>Inserir › Imagens</b> e escolha o <code>fundo_certificado</code>.</li>
+  <li>Clique na imagem, depois no ícone de <b>Opções de Layout</b> (ao lado dela) e escolha <b>Atrás do texto</b>.</li>
+  <li>Puxe os cantos da imagem até ela cobrir a folha inteira.</li>
+  <li>Clique em <b>Fechar Cabeçalho e Rodapé</b>.</li>
+</ol>
+<div class="box"><b>Por que no cabeçalho?</b> Lá a arte fica presa e não sai do lugar quando você digita. E ela aparece sozinha em todos os certificados.</div>
+
+<h3>Passo 2 · Conecte a planilha</h3>
+<ol>
+  <li>Feche o Excel (o Word não consegue abrir a planilha se ela estiver aberta).</li>
+  <li><b>Correspondências › Iniciar Mala Direta › Cartas</b>.</li>
+  <li><b>Selecionar Destinatários › Usar uma Lista Existente</b> e escolha o seu arquivo <code>Certificados_SeuNome</code>.</li>
+  <li>Escolha <b>Base$</b> e clique em OK.</li>
+  <li>Agora só os aprovados: <b>Editar Lista de Destinatários › Filtrar</b>. Em Campo, escolha <b>Situacao</b>. Em Comparação, <b>Igual a</b>. Em Comparar com, escreva <b>APROVADO</b>.</li>
+</ol>
+
+<h3>Passo 3 · Escreva o texto com os campos</h3>
+<p>Aperte <b>Enter</b> algumas vezes até chegar no espaço vazio da arte. Digite o texto abaixo. Nos pedaços azuis, não digite: vá em <b>Inserir Campo de Mesclagem</b> e escolha o campo com aquele nome.</p>
+<div class="cert">
+  Certificamos que <span class="fld">«Aluno»</span> <b><span class="fld">«Nome_Maiusc»</span></b>, matrícula <span class="fld">«Matricula»</span>, concluiu o curso livre de <b><span class="fld">«Curso»</span></b>, oferecido pela Secretaria de Cultura do Eusébio, com carga horária de <span class="fld">«Carga_Horaria»</span> horas, no período de <span class="fld">«Inicio_Txt»</span> a <span class="fld">«Termino_Txt»</span>, com média final <span class="fld">«Media_Txt»</span>, frequência de <span class="fld">«Freq_Txt»</span> e conceito <b><span class="fld">«Conceito»</span></b>.
+  <br><br><div style="text-align:right">Eusébio (CE), 11 de dezembro de 2026.</div>
+  <br><div style="font-size:.8em;color:#556">Código de validação: <span class="fld">«Codigo»</span></div>
+</div>
+<p>Depois: selecione o texto, <b>centralize</b> e use uma fonte bonita, como <b>Georgia</b> ou <b>Cambria</b>, tamanho 14 a 16.</p>
+
+<h3>Passo 4 · Confira e crie os certificados</h3>
+<ol>
+  <li>Clique em <b>Visualizar Resultados</b>. Os nomes de verdade aparecem!</li>
+  <li>Use as <b>setinhas</b> para ver aluno por aluno. O texto coube no espaço da arte?</li>
+  <li>Achou um erro nos dados? Corrija <b>no Excel</b>, salve, e volte para o Word.</li>
+  <li><b>Concluir e Mesclar › Editar Documentos Individuais › Todos › OK</b>. O Word cria um documento novo com um certificado por página.</li>
+  <li>Salve esse documento novo em PDF: <b>Arquivo › Salvar como</b>, tipo <b>PDF</b>, nome <code>Certificados_Turma</code>.</li>
+  <li>Salve também o modelo (o documento com os campos azuis) como <code>Modelo_Certificado</code>.</li>
+</ol>
+<div class="box ok"><b>Deu certo se:</b> o PDF tem <b>10 páginas</b>, uma para cada aprovado, e na primeira está escrito “a aluna SAKURA HARUNO”.</div>
+
+<h2>Deu problema? Toque para ver a solução</h2>
+<details class='prob'><summary>Apareceu <code>#N/D</code> no PROCV</summary><p>O nome do curso está escrito diferente nas duas abas (um acento ou espaço a mais), ou você esqueceu os <code>$</code>.</p></details><details class='prob'><summary>Apareceu <code>#####</code></summary><p>Não é erro! A coluna está estreita. Dê dois cliques na divisa entre as letras das colunas.</p></details><details class='prob'><summary>Apareceu <code>#NOME?</code></summary><p>Tem uma letra errada no nome da função, ou faltou uma aspa.</p></details><details class='prob'><summary>A data virou um número tipo 46239</summary><p>Selecione a coluna e mude o formato para <b>Data</b>.</p></details><details class='prob'><summary>No Word aparece <code>«Nome_Maiusc»</code> em vez do nome</summary><p>Clique em <b>Visualizar Resultados</b>.</p></details><details class='prob'><summary>No Word a frequência saiu 0,9375</summary><p>Você usou o campo <b>Frequencia</b>. Troque pelo <b>Freq_Txt</b>.</p></details><details class='prob'><summary>A arte do Canva está empurrando ou cobrindo o texto</summary><p>Clique na imagem e escolha <b>Atrás do texto</b>. Ela precisa estar dentro do cabeçalho.</p></details><details class='prob'><summary>O Word não deixa abrir a planilha</summary><p>Feche a planilha no Excel antes de conectar no Word.</p></details>
+
+<h2><span class="n">★</span>Desafio extra: declaração de participação</h2>
+<p>Quem foi reprovado também merece um papel dizendo que participou. Faça um segundo modelo:</p>
+<ol>
+  <li>No Canva, duplique a arte e troque o título para <b>DECLARAÇÃO DE PARTICIPAÇÃO</b>.</li>
+  <li>No Word, faça uma nova mala direta, mas filtre <b>Situacao igual a REPROVADO</b>.</li>
+  <li>Use este texto:</li>
+</ol>
+<div class="cert">Declaramos que <span class="fld">«Aluno»</span> <b><span class="fld">«Nome_Maiusc»</span></b> participou do curso livre de <span class="fld">«Curso»</span>, no período de <span class="fld">«Inicio_Txt»</span> a <span class="fld">«Termino_Txt»</span>, com frequência de <span class="fld">«Freq_Txt»</span>.</div>
+<p>Quantas declarações saíram? É o mesmo número da pergunta 3 do Resumo?</p>
+
+<h2>O que entregar</h2>
+<ul class="check">
+  <li><code>Certificados_SeuNome.xlsx</code> com as abas Base, Cursos e Resumo</li>
+  <li><code>fundo_certificado.png</code> (a arte do Canva)</li>
+  <li><code>Modelo_Certificado.docx</code> (o modelo com os campos)</li>
+  <li><code>Certificados_Turma.pdf</code> (os 10 certificados)</li>
+  <li>Desafio: <code>Declaracoes.pdf</code></li>
+</ul>
+
+<h2>Como vai ser a nota</h2>
+<div class="grid">
+  <div class="card"><h4>Excel · 4 pontos</h4>Fórmulas certas em todas as colunas e perguntas do Resumo respondidas com fórmula.</div>
+  <div class="card"><h4>Canva · 2 pontos</h4>Folha A4 deitada, arte caprichada e meio livre para o texto.</div>
+  <div class="card"><h4>Word · 4 pontos</h4>Arte no fundo, todos os campos no lugar, só aprovados e PDF sem erros.</div>
+</div>
+
+</main>
+<footer>Atividade prática · Informática Básica · Secretaria de Cultura do Eusébio · Alunos fictícios com nomes de personagens de anime.</footer>
+
+<textarea id="t-cursos" hidden>Curso	Carga_Horaria	Aulas	Inicio	Termino
+Informática Básica	64	32	05/08/2026	04/12/2026
+Animação 2D	32	16	04/08/2026	01/12/2026
+Modelagem 3D	32	16	06/08/2026	03/12/2026</textarea>
+<textarea id="t-alunos" hidden>Matricula	Nome	Genero	Curso	N1	N2	N3	Faltas
+1001	Sakura Haruno	F	Informática Básica	8,5	7,0	9,0	2
+1002	Naruto Uzumaki	M	Informática Básica	6,0	5,5	7,0	4
+1003	Mikasa Ackerman	F	Animação 2D	9,5	9,0	10,0	1
+1004	Eren Yeager	M	Modelagem 3D	7,5	8,0	7,0	5
+1005	Hinata Hyuga	F	Informática Básica	7,0	7,5	8,0	6
+1006	Izuku Midoriya	M	Animação 2D	8,0	8,5	9,0	0
+1007	Nezuko Kamado	F	Modelagem 3D	10,0	9,5	9,5	1
+1008	Monkey D. Luffy	M	Informática Básica	5,0	6,5	6,0	3
+1009	Usagi Tsukino	F	Animação 2D	7,0	6,5	7,5	2
+1010	Tanjiro Kamado	M	Modelagem 3D	8,0	7,5	8,5	2
+1011	Bulma Briefs	F	Informática Básica	9,0	8,5	9,5	9
+1012	Son Goku	M	Animação 2D	6,5	7,0	7,0	1
+1013	Asuka Langley	F	Modelagem 3D	8,5	9,0	8,0	3
+1014	Light Yagami	M	Informática Básica	7,5	8,0	7,0	1
+1015	Rukia Kuchiki	F	Animação 2D	9,0	8,0	8,5	4</textarea>
+<script>
+{
+  document.querySelectorAll('button.cp').forEach(function(b) {
+    b.addEventListener('click', function() {
+      var txt = document.getElementById('t-' + b.dataset.src).value;
+      var orig = b.textContent;
+      function ok() { b.textContent = '✅ Copiado! Agora cole no Excel (Ctrl + V)'; setTimeout(function(){ b.textContent = orig; }, 2500); }
+      function fail() { b.textContent = 'Não deu: selecione a tabela abaixo e use Ctrl + C'; setTimeout(function(){ b.textContent = orig; }, 4000); }
+      function fallback() {
+        var ta = document.createElement('textarea'); ta.value = txt; ta.style.position = 'fixed'; ta.style.opacity = '0';
+        document.body.appendChild(ta); ta.select();
+        try { document.execCommand('copy') ? ok() : fail(); } catch (e) { fail(); }
+        document.body.removeChild(ta);
+      }
+      if (navigator.clipboard && window.isSecureContext) { navigator.clipboard.writeText(txt).then(ok, fallback); } else { fallback(); }
+    });
+  });
+}
+</script>
+</body>
+</html>
